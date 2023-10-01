@@ -1,6 +1,6 @@
 ## 💻 Projeto
 
-igniteshoesapp
+Ignite Shoes App
 
 ## 📝 Licença
 
