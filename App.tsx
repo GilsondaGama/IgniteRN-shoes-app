@@ -8,25 +8,24 @@ import {
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
-
 import { THEME } from "./src/theme";
 import { Routes } from "./src/routes";
 import { Loading } from "./src/components/Loading";
 import { CartContextProvider } from "./src/contexts/CartContext";
 
+
+import OneSignal, { OSNotification } from "react-native-onesignal";
 import { Notification } from "./src/components/Notification";
-import { tagUserEmailCreate } from "./src/notifications/notificationsTags";
 
-import OneSignal, { NotificationReceivedEvent, OSNotification } from "react-native-onesignal";
+import {REACT_APP_ONE_SIGNAL_ID_ANDROID} from '@env'
+OneSignal.setAppId(REACT_APP_ONE_SIGNAL_ID_ANDROID!);
 
-const { ONESIGNAL_APP_ID } = process.env;
-OneSignal.setAppId(ONESIGNAL_APP_ID!);
 
 export default function App() { 
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
-  const [notification, setNotification] = useState<OSNotification | null>(null);
 
-  tagUserEmailCreate("gilsondagama@hotmail.com");
+  const [notification, setNotification] = useState<OSNotification | null>(null);
+  // tagUserEmailCreate("gilsondagama@hotmail.com");
 
   return (
     <NativeBaseProvider theme={THEME}>
@@ -39,7 +38,7 @@ export default function App() {
         {fontsLoaded ? <Routes /> : <Loading />}
       </CartContextProvider>
 
-      <Notification title="mensagem de Notificação" onClose={() => {}}/>
+      <Notification title={`.env: ${REACT_APP_ONE_SIGNAL_ID_ANDROID}`} onClose={() => {}}/>
     </NativeBaseProvider>
   );
 }
